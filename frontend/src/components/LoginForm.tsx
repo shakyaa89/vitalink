@@ -26,7 +26,7 @@ const LoginForm: React.FC = () => {
   }, []);
 
   return (
-    <div className="mt-10 md:mt-30 lg:mt-30 flex items-center justify-center px-10">
+    <div className="mt-20 md:mt-30  flex items-center justify-center px-10">
       <div className="bg-white rounded-xl shadow-lg p-10 w-full max-w-md">
         <div className="flex flex-col items-center mb-6">
           <CircleUserRound className="text-indigo-500 mb-5" size={100} />

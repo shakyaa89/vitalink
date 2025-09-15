@@ -49,7 +49,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="mt-5 md:mt-20 lg:mt-20 flex items-center justify-center px-10">
+    <div className="mt-15 md:mt-15 flex items-center justify-center px-10">
       <div className="bg-white rounded-xl shadow-lg p-10 w-full max-w-md">
         <div className="flex flex-col items-center mb-6">
           <ShieldUser className="text-indigo-500 mb-5" size={100} />
@@ -95,7 +95,7 @@ const RegisterForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700 mb-1">Picture</label>
+            <label className="block text-gray-700 mb-1">Profile Picture</label>
             <input
               id="picture"
               type="file"

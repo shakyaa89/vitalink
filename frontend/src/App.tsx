@@ -9,6 +9,7 @@ import RegisterForm from "./components/RegisterForm";
 import { useAuth } from "./hooks/useAuthHook";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
+import AboutUsPage from "./pages/AboutUsPage";
 
 function App() {
   const { checkAuth, authUser } = useAuth();
@@ -25,7 +26,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<HomePage />} />
+        <Route path="/about" element={<AboutUsPage />} />
         <Route path="/doctors" element={<HomePage />} />
 
         <Route path="/admin" element={<HomePage />} />
