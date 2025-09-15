@@ -26,10 +26,10 @@ function HeroSection() {
                 Find a doctor
               </button>
               <Link
-                to="/login"
+                to="/about"
                 className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg cursor-pointer"
               >
-                Login &rarr;
+                Learn More &rarr;
               </Link>
             </div>
           </div>

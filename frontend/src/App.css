@@ -4,3 +4,7 @@
   border-bottom: 2px solid gray;
   border: 50%;
 }
+
+body {
+  overflow-y: scroll;
+}

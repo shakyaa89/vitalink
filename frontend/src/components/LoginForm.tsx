@@ -1,16 +1,29 @@
 // LoginForm.tsx
 import { CircleUserRound } from "lucide-react";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuthHook";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { authUser, login } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password);
+
+    const data = {
+      email,
+      password,
+    };
+
+    await login(data, navigate);
   };
+
+  useEffect(() => {
+    console.log(authUser);
+  }, []);
 
   return (
     <div className="mt-10 md:mt-30 lg:mt-30 flex items-center justify-center px-10">
@@ -44,7 +57,6 @@ const LoginForm: React.FC = () => {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="••••••••"
-              required
             />
           </div>
 

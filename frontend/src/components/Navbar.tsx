@@ -1,6 +1,15 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuthHook";
+import { CircleUser } from "lucide-react";
 
 export default function Navbar() {
+  const { authUser, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout(navigate);
+  };
+
   return (
     <div>
       <header className="text-gray-900 body-font">
@@ -23,12 +32,42 @@ export default function Navbar() {
               Admin
             </NavLink> */}
           </nav>
-          <Link
-            to={"/login"}
-            className="inline-flex items-center bg-gray-100 border-0 py-1 px-5 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
-          >
-            Login &rarr;
-          </Link>
+
+          {authUser ? (
+            <>
+              <span className="mr-3  py-1">{authUser.name}</span>
+              <span className="mr-3 border-r border-gray-400 pr-3 py-1">
+                {authUser.profilePic ? (
+                  <img
+                    src={authUser?.profilePic}
+                    alt=""
+                    className="w-[30px] h-[30px] rounded-full"
+                  />
+                ) : (
+                  <CircleUser className="w-[30px] h-[30px]" />
+                )}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="inline-flex items-center bg-gray-100 border-0 py-1 px-5 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 cursor-pointer"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <span className="mr-3  py-1">Guest</span>
+              <span className="mr-3 border-r border-gray-400 pr-3 py-1">
+                <CircleUser className="w-[30px] h-[30px]" />
+              </span>
+              <Link
+                to={"/login"}
+                className="inline-flex items-center bg-gray-100 border-0 py-1 px-5 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+              >
+                Login &rarr;
+              </Link>
+            </>
+          )}
         </div>
       </header>
     </div>
