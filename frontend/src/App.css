@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+.active {
+  border-bottom: 2px solid gray;
+  border: 50%;
+}
