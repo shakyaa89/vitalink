@@ -39,6 +39,11 @@ export default function Navbar() {
             <NavLink to={"/doctors"} className="mr-5 hover:text-gray-600">
               Find Doctors
             </NavLink>
+            {authUser && authUser.role === "admin" && (
+              <NavLink to={"/admin"} className="mr-5 hover:text-gray-600">
+                Admin Dashboard
+              </NavLink>
+            )}
           </nav>
 
           <div className="hidden md:flex items-center">

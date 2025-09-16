@@ -10,15 +10,23 @@ import { useAuth } from "./hooks/useAuthHook";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import AboutUsPage from "./pages/AboutUsPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import { Loader2 } from "lucide-react";
 
 function App() {
-  const { checkAuth, authUser } = useAuth();
+  const { checkAuth, authUser, isCheckingAuth } = useAuth();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
 
-  console.log(authUser);
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="animate-spin" size={40} />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -29,7 +37,16 @@ function App() {
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/doctors" element={<HomePage />} />
 
-        <Route path="/admin" element={<HomePage />} />
+        <Route
+          path="/admin"
+          element={
+            authUser && authUser.role === "admin" ? (
+              <AdminDashboardPage />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
 
         <Route
           path="/login"

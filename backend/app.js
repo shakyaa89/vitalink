@@ -7,6 +7,7 @@ var dotenv = require("dotenv");
 dotenv.config();
 
 var authRouter = require("./routes/auth.route.js");
+var adminRouter = require("./routes/admin.route.js");
 const { connectDB } = require("./lib/db.js");
 
 var app = express();
@@ -24,6 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/auth", authRouter);
+app.use("/api/admin", adminRouter);
 
 app.listen(5000, () => {
   console.log("App listening on port 5000!");

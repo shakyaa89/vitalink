@@ -101,7 +101,7 @@ const RegisterForm = () => {
               type="file"
               accept="image/*"
               onChange={handleUploadImage}
-              className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium"
+              className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-gray-400 file:border-r file:bg-transparent file:text-gray-600 file:text-sm file:font-medium file:pr-3 file:mr-3 file:cursor-pointer"
             />
           </div>
 

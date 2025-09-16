@@ -24,9 +24,13 @@ export const loginController = async (req, res) => {
       return res.status(400).json({ message: "Invalid Credentials!" });
     }
 
-    const token = jwt.sign({ userId: userDb._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      { userId: userDb._id, userRole: userDb.role },
+      process.env.JWT_SECRET_KEY,
+      {
+        expiresIn: "1d",
+      }
+    );
 
     res.cookie("jwtToken", token, {
       httpOnly: true,
@@ -70,7 +74,7 @@ export const registerController = async (req, res) => {
     await newUser.save();
 
     const token = jwt.sign(
-      { userId: newUser._id },
+      { userId: newUser._id, userRole: newUser.role },
       process.env.JWT_SECRET_KEY,
       {
         expiresIn: "1d",
