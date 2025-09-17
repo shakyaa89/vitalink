@@ -12,7 +12,6 @@ import { Toaster } from "react-hot-toast";
 import AboutUsPage from "./pages/AboutUsPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import { Loader2 } from "lucide-react";
-import DoctorLoginForm from "./components/doctor/DoctorLoginForm";
 import DoctorRegisterForm from "./components/doctor/DoctorRegisterForm";
 
 function App() {
@@ -53,11 +52,6 @@ function App() {
         <Route
           path="/login"
           element={authUser ? <Navigate to="/" /> : <LoginForm />}
-        />
-
-        <Route
-          path="/doctor/login"
-          element={authUser ? <Navigate to="/" /> : <DoctorLoginForm />}
         />
 
         <Route

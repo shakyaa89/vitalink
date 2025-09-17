@@ -79,12 +79,12 @@ const LoginForm: React.FC = () => {
         </p>
 
         <p className="mt-4 text-sm text-center text-gray-500">
-          Login as a Doctor,{" "}
+          Register as a doctor{" "}
           <Link
-            to={"/doctor/login"}
+            to={"/doctor/register"}
             className="text-indigo-500 font-medium hover:underline"
           >
-            Doctor Login
+            Doctor Registration Here
           </Link>
         </p>
       </div>

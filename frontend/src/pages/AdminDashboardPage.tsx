@@ -1,10 +1,10 @@
-import DoctorsList from "../components/DoctorsList";
-import UsersList from "../components/UsersList";
+import DoctorsList from "../components/admin/DoctorsList.tsx";
+import UsersList from "../components/admin/UsersList";
 import { useState } from "react";
-import AdminDashboard from "../components/AdminDashboard";
+import AdminDashboard from "../components/admin/AdminDashboard";
 
 function AdminDashboardPage() {
-  const [activeSection, setActiveSection] = useState("");
+  const [activeSection, setActiveSection] = useState("dashboard");
 
   return (
     <>

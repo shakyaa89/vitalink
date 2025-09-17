@@ -191,7 +191,7 @@ const DoctorRegisterForm = () => {
         <p className="mt-4 text-sm text-center text-gray-500">
           Already have an account?{" "}
           <Link
-            to={"/doctor/login"}
+            to={"/login"}
             className="text-indigo-500 font-medium hover:underline"
           >
             Login Here

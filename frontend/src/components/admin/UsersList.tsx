@@ -42,23 +42,31 @@ function UsersList() {
         <div className="flex flex-wrap -m-2">
           {users.map((user, index) => (
             <div key={index} className="p-2 lg:w-1/3 md:w-1/2 w-full">
-              <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
-                <img
-                  alt={user.name}
-                  className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-                  src={user.profilePic || "https://dummyimage.com/80x80"}
-                />
-                <div className="flex flex-col">
-                  <h2 className="text-gray-900 title-font font-medium">
-                    {user.name}
-                  </h2>
-                  <p className="text-gray-500">{user.email}</p>
+              <div className="border-gray-200 border p-4 rounded-lg">
+                <div className="h-full flex items-cente">
+                  <img
+                    alt={user.name}
+                    className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+                    src={user.profilePic || "https://dummyimage.com/80x80"}
+                  />
+                  <div className="flex flex-col">
+                    <h2 className="text-gray-900 title-font font-medium">
+                      {user.name}
+                    </h2>
+                    <p className="text-gray-500">{user.email}</p>
 
-                  <div className="flex items-center gap-1">
-                    <User2 size={20} />
-                    <p className="text-gray-500 capitalize">{user.role}</p>
+                    <div className="flex items-center gap-1">
+                      <User2 size={20} />
+                      <p className="text-gray-500 capitalize">{user.role}</p>
+                    </div>
                   </div>
                 </div>
+                <button
+                  // onClick={() => handleDeletion(doctor._id)}
+                  className="w-full mt-3 bg-red-500 text-white font-semibold py-1 px-3 rounded-lg hover:bg-red-600 transition-colors cursor-pointer"
+                >
+                  Delete User
+                </button>
               </div>
             </div>
           ))}
