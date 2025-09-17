@@ -12,6 +12,8 @@ import { Toaster } from "react-hot-toast";
 import AboutUsPage from "./pages/AboutUsPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import { Loader2 } from "lucide-react";
+import DoctorLoginForm from "./components/doctor/DoctorLoginForm";
+import DoctorRegisterForm from "./components/doctor/DoctorRegisterForm";
 
 function App() {
   const { checkAuth, authUser, isCheckingAuth } = useAuth();
@@ -52,9 +54,20 @@ function App() {
           path="/login"
           element={authUser ? <Navigate to="/" /> : <LoginForm />}
         />
+
+        <Route
+          path="/doctor/login"
+          element={authUser ? <Navigate to="/" /> : <DoctorLoginForm />}
+        />
+
         <Route
           path="/register"
           element={authUser ? <Navigate to="/" /> : <RegisterForm />}
+        />
+
+        <Route
+          path="/doctor/register"
+          element={authUser ? <Navigate to="/" /> : <DoctorRegisterForm />}
         />
 
         <Route path="*" element={<NotFoundPage />} />

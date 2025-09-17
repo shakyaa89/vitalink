@@ -2,9 +2,9 @@
 import { CircleUserRound } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuthHook";
+import { useAuth } from "../../hooks/useAuthHook";
 
-const LoginForm: React.FC = () => {
+const DoctorLoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -13,12 +13,12 @@ const LoginForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const data = {
-      email,
-      password,
-    };
+    // const data = {
+    //   email,
+    //   password,
+    // };
 
-    await login(data, navigate);
+    // await login(data, navigate);
   };
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const LoginForm: React.FC = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-0 text-center">
             Welcome back!
           </h2>
-          <p>Login to your user account</p>
+          <p>Login to your doctor account</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -71,7 +71,7 @@ const LoginForm: React.FC = () => {
         <p className="mt-4 text-sm text-center text-gray-500">
           Don't have an account?{" "}
           <Link
-            to={"/register"}
+            to={"/doctor/register"}
             className="text-indigo-500 font-medium hover:underline"
           >
             Register Here
@@ -79,12 +79,12 @@ const LoginForm: React.FC = () => {
         </p>
 
         <p className="mt-4 text-sm text-center text-gray-500">
-          Login as a Doctor,{" "}
+          Login as a user,{" "}
           <Link
-            to={"/doctor/login"}
+            to={"/login"}
             className="text-indigo-500 font-medium hover:underline"
           >
-            Doctor Login
+            User Login
           </Link>
         </p>
       </div>
@@ -92,4 +92,4 @@ const LoginForm: React.FC = () => {
   );
 };
 
-export default LoginForm;
+export default DoctorLoginForm;

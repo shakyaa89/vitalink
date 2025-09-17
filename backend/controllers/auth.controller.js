@@ -69,6 +69,7 @@ export const registerController = async (req, res) => {
       email,
       password: hashedPassword,
       profilePic: uploadResponse.secure_url,
+      doctorProfile: {},
     });
 
     await newUser.save();

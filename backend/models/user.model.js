@@ -22,6 +22,30 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "user",
     },
+    doctorProfile: {
+      specialization: {
+        type: String,
+        default: "",
+      },
+      experience: {
+        type: Number,
+        default: 0,
+      },
+      fee: {
+        type: Number,
+        default: 0,
+      },
+      startTime: {
+        type: String,
+      },
+      endTime: {
+        type: String,
+      },
+      isApproved: {
+        type: Boolean,
+        default: false,
+      },
+    },
   },
   { timestamps: true }
 );
