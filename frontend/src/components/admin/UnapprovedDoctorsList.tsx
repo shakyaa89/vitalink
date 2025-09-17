@@ -18,11 +18,7 @@ interface Doctor {
   email: string;
   role: string;
   profilePic: string;
-  specialization: string;
-  experience: number;
-  fee: number;
-  startTime: string;
-  endTime: string;
+
   doctorProfile: DoctorProfile;
 }
 

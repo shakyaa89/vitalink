@@ -18,11 +18,6 @@ interface Doctor {
   email: string;
   role: string;
   profilePic: string;
-  specialization: string;
-  experience: number;
-  fee: number;
-  startTime: string;
-  endTime: string;
   doctorProfile: DoctorProfile;
 }
 
@@ -31,12 +26,7 @@ function DoctorsList() {
 
   const fetchDoctors = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/admin/doctors",
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get("http://localhost:5000/api/doctor");
       setDoctors(response.data.doctors);
     } catch (error) {
       console.error("Error fetching unapproved doctors:", error);

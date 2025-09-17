@@ -13,6 +13,7 @@ import AboutUsPage from "./pages/AboutUsPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import { Loader2 } from "lucide-react";
 import DoctorRegisterForm from "./components/doctor/DoctorRegisterForm";
+import DoctorsPage from "./pages/DoctorsPage";
 
 function App() {
   const { checkAuth, authUser, isCheckingAuth } = useAuth();
@@ -36,7 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutUsPage />} />
-        <Route path="/doctors" element={<HomePage />} />
+        <Route path="/doctors" element={<DoctorsPage />} />
 
         <Route
           path="/admin"

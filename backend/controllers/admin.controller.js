@@ -21,18 +21,6 @@ export async function fetchUnapprovedDoctors(req, res) {
   }
 }
 
-export async function fetchAllDoctors(req, res) {
-  try {
-    const doctors = await User.find({
-      role: "doctor",
-      "doctorProfile.isApproved": true,
-    }).select("-password");
-    return res.status(200).json({ doctors });
-  } catch (error) {
-    return res.status(500).json({ message: "Server error" });
-  }
-}
-
 export async function approveDoctor(req, res) {
   try {
     const doctor = await User.findById(req.params.id);

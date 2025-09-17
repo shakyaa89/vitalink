@@ -3,8 +3,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cloudinary from "../lib/cloudinary.js";
 
-export async function doctorLogin(req, res) {}
-
 export async function doctorRegister(req, res) {
   const {
     name,
@@ -79,4 +77,16 @@ export async function doctorRegister(req, res) {
       .status(200)
       .json({ message: "Successfully registered, wait for admin approval" });
   } catch (error) {}
+}
+
+export async function fetchAllDoctors(req, res) {
+  try {
+    const doctors = await User.find({
+      role: "doctor",
+      "doctorProfile.isApproved": true,
+    }).select("-password");
+    return res.status(200).json({ doctors });
+  } catch (error) {
+    return res.status(500).json({ message: "Server error" });
+  }
 }
