@@ -8,6 +8,7 @@ import {
   UserCircle,
 } from "lucide-react";
 import { useAuth } from "../hooks/useAuthHook";
+import { useNavigate } from "react-router-dom";
 
 interface DoctorProfile {
   specialization: string;
@@ -31,6 +32,7 @@ function DoctorsPage() {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [specializationFilter, setSpecializationFilter] = useState("");
   const [allSpecializations, setAllSpecializations] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   const { authUser } = useAuth();
 
@@ -114,7 +116,7 @@ function DoctorsPage() {
                   <UserCircle className="w-24 h-24 text-blue-300 mb-3" />
                 )}
                 <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-1">
-                  {doctor.name}
+                  Dr. {doctor.name}
                   {doctor.doctorProfile.isApproved && (
                     <BadgeCheck className="w-5 h-5 text-green-500" />
                   )}
@@ -139,9 +141,7 @@ function DoctorsPage() {
                 {authUser && (
                   <button
                     className="mt-4 w-full bg-indigo-500 text-white py-2 rounded-xl hover:bg-indigo-600 transition-colors"
-                    onClick={() =>
-                      alert(`Booking appointment with Dr. ${doctor.name}`)
-                    }
+                    onClick={() => navigate(`/book-appointment/${doctor._id}`)}
                   >
                     Book Appointment
                   </button>

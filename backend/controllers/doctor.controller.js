@@ -90,3 +90,12 @@ export async function fetchAllDoctors(req, res) {
     return res.status(500).json({ message: "Server error" });
   }
 }
+
+export async function fetchSingleDoctor(req, res) {
+  try {
+    const doctor = await User.findById(req.params.id).select("-password");
+    return res.status(200).json({ doctor });
+  } catch (error) {
+    return res.status(500).json({ message: "Server error" });
+  }
+}

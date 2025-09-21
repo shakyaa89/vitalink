@@ -14,6 +14,7 @@ import AdminDashboardPage from "./pages/AdminDashboardPage";
 import { Loader2 } from "lucide-react";
 import DoctorRegisterForm from "./components/doctor/DoctorRegisterForm";
 import DoctorsPage from "./pages/DoctorsPage";
+import BookAppointmentPage from "./pages/BookAppointmentPage";
 
 function App() {
   const { checkAuth, authUser, isCheckingAuth } = useAuth();
@@ -38,6 +39,13 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/doctors" element={<DoctorsPage />} />
+
+        <Route
+          path="/book-appointment/:doctorId"
+          element={
+            authUser ? <BookAppointmentPage /> : <Navigate to="/login" />
+          }
+        />
 
         <Route
           path="/admin"
