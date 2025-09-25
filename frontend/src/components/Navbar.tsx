@@ -30,20 +30,26 @@ export default function Navbar() {
 
           {/* Desktop nav + auth */}
           <nav className="hidden md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 md:flex items-center text-base justify-center">
-            <NavLink to={"/"} className="mr-5 hover:text-gray-600">
-              Home
-            </NavLink>
-            <NavLink to={"/about"} className="mr-5 hover:text-gray-600">
-              About
-            </NavLink>
-            <NavLink to={"/doctors"} className="mr-5 hover:text-gray-600">
-              Find Doctors
-            </NavLink>
-            {authUser && authUser.role === "admin" && (
+            {authUser === null || authUser.role !== "admin" ? (
+              <>
+                <NavLink to={"/"} className="mr-5 hover:text-gray-600">
+                  Home
+                </NavLink>
+                <NavLink to={"/about"} className="mr-5 hover:text-gray-600">
+                  About
+                </NavLink>
+                <NavLink to={"/doctors"} className="mr-5 hover:text-gray-600">
+                  Find Doctors
+                </NavLink>
+              </>
+            ) : (
               <NavLink to={"/admin"} className="mr-5 hover:text-gray-600">
                 Admin Dashboard
               </NavLink>
             )}
+            {/* {authUser && authUser.role === "admin" && (
+              
+            )} */}
           </nav>
 
           <div className="hidden md:flex items-center">

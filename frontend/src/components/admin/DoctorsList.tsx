@@ -23,6 +23,8 @@ interface Doctor {
 
 function DoctorsList() {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [doctorId, setDoctorId] = useState<string>("");
 
   const fetchDoctors = async () => {
     try {
@@ -45,6 +47,7 @@ function DoctorsList() {
       );
       fetchDoctors();
       toast.success(response.data.message);
+      setShowDeleteModal(false);
     } catch (error) {
       console.error("Error rejecting doctor:", error);
     }
@@ -97,7 +100,10 @@ function DoctorsList() {
                   </div>
                 </div>
                 <button
-                  onClick={() => handleDeletion(doctor._id)}
+                  onClick={() => {
+                    setDoctorId(doctor._id);
+                    setShowDeleteModal(true);
+                  }}
                   className="w-full mt-3 bg-red-500 text-white font-semibold py-1 px-3 rounded-lg hover:bg-red-600 transition-colors cursor-pointer"
                 >
                   Delete Doctor
@@ -107,6 +113,33 @@ function DoctorsList() {
           ))}
         </div>
       </div>
+
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-sm shadow-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-900">
+              Confirm Deletion
+            </h2>
+            <p className="text-gray-600 mb-4">
+              Are you sure you want to delete this doctor?
+            </p>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => handleDeletion(doctorId)}
+                className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

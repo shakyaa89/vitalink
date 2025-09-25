@@ -3,7 +3,10 @@ const {
   createAppointment,
   getAppointmentsByDoctor,
 } = require("../controllers/appointment.controller");
-const { protectRoute } = require("../middleware/auth.middleware");
+const {
+  protectRoute,
+  protectAdminRoute,
+} = require("../middleware/auth.middleware");
 
 var router = express.Router();
 

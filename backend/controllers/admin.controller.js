@@ -1,3 +1,4 @@
+import Appointment from "../models/appointment.model.js";
 import User from "../models/user.model.js";
 
 export async function fetchAllUsers(req, res) {
@@ -46,9 +47,61 @@ export async function deleteDoctor(req, res) {
       return res.status(404).json({ message: "Doctor not found" });
     }
 
+    await Appointment.deleteMany({ doctor: req.params.id });
+
     await User.findByIdAndDelete(req.params.id);
 
     return res.status(200).json({ message: "Doctor deleted!" });
+  } catch (error) {
+    return res.status(500).json({ message: "Server error" });
+  }
+}
+
+export const getAllAppointments = async (req, res) => {
+  try {
+    const appointments = await Appointment.find({})
+      .populate("doctor")
+      .populate("user");
+
+    res.status(200).json({
+      appointments,
+    });
+  } catch (err) {
+    console.error("Error fetching appointments:", err);
+    res.status(500).json({
+      message: "Failed to fetch appointments",
+    });
+  }
+};
+
+export async function confirmAppointment(req, res) {
+  try {
+    const appointment = await Appointment.findById(req.params.id);
+
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    appointment.status = "confirmed";
+    await appointment.save();
+
+    return res.status(200).json({ message: "Appointment Confirmed!" });
+  } catch (error) {
+    return res.status(500).json({ message: "Server error" });
+  }
+}
+
+export async function deleteAppointment(req, res) {
+  try {
+    const appointment = await Appointment.findById(req.params.id);
+
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    await Appointment.findByIdAndDelete(req.params.id);
+
+    return res.status(200).json({ message: "Appointment deleted!" });
   } catch (error) {
     return res.status(500).json({ message: "Server error" });
   }

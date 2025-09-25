@@ -2,6 +2,7 @@ import DoctorsList from "../components/admin/DoctorsList.tsx";
 import UsersList from "../components/admin/UsersList";
 import { useState } from "react";
 import AdminDashboard from "../components/admin/AdminDashboard";
+import AppointmentsList from "../components/admin/AppointmentsList.tsx";
 
 function AdminDashboardPage() {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -46,12 +47,25 @@ function AdminDashboardPage() {
           >
             All Doctors
           </button>
+          <button
+            onClick={() => {
+              setActiveSection("appointments");
+            }}
+            className={
+              activeSection === "appointments"
+                ? "cursor-pointer border-b-2"
+                : "cursor-pointer"
+            }
+          >
+            All Appointments
+          </button>
         </div>
       </div>
 
       {activeSection === "dashboard" && <AdminDashboard />}
       {activeSection === "users" && <UsersList />}
       {activeSection === "doctors" && <DoctorsList />}
+      {activeSection === "appointments" && <AppointmentsList />}
     </>
   );
 }
