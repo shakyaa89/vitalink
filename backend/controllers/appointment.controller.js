@@ -28,7 +28,9 @@ export const getAppointmentsByDoctor = async (req, res) => {
   const { doctorId } = req.params;
 
   try {
-    const appointments = await Appointment.find({ doctor: doctorId });
+    const appointments = await Appointment.find({ doctor: doctorId }).populate(
+      "user"
+    );
 
     res.status(200).json({
       appointments,

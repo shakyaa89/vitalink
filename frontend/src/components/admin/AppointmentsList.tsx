@@ -17,6 +17,7 @@ interface Appointment {
   date: string;
   time: string;
   status: "pending" | "confirmed" | "cancelled" | "completed";
+  createdAt: Date;
 }
 
 function AppointmentsList() {
@@ -149,8 +150,11 @@ function AppointmentsList() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-col justify-center gap-2">
                     <p className="text-gray-500">Appointment ID: {appt._id}</p>
+                    <p className="text-sm font-semibold capitalize text-gray-500">
+                      Creation Date: {new Date(appt.createdAt).toLocaleString()}
+                    </p>
                   </div>
                   <div className="flex items-center gap-2">
                     <CalendarDays size={18} />
@@ -177,6 +181,9 @@ function AppointmentsList() {
                     >
                       {appt.status}
                     </span>
+                  </p>
+                  <p className="text-sm font-semibold capitalize">
+                    Creation Date: {new Date(appt.createdAt).toLocaleString()}
                   </p>
                   <div className="flex gap-5">
                     {appt.status === "pending" && (

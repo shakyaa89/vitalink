@@ -13,6 +13,61 @@ export default function Navbar() {
     setIsOpen(false);
   };
 
+  const renderLinks = () => {
+    if (!authUser) {
+      return (
+        <>
+          <NavLink to={"/"} className="mr-5 hover:text-gray-600">
+            Home
+          </NavLink>
+          <NavLink to={"/about"} className="mr-5 hover:text-gray-600">
+            About
+          </NavLink>
+          <NavLink
+            to={"/available-doctors"}
+            className="mr-5 hover:text-gray-600"
+          >
+            Find Doctors
+          </NavLink>
+        </>
+      );
+    }
+
+    if (authUser.role === "admin") {
+      return (
+        <NavLink to={"/admin"} className="mr-5 hover:text-gray-600">
+          Admin Dashboard
+        </NavLink>
+      );
+    }
+
+    if (authUser.role === "doctor") {
+      return (
+        <NavLink to={"/doctor"} className="mr-5 hover:text-gray-600">
+          Doctor Dashboard
+        </NavLink>
+      );
+    }
+
+    // normal user
+    return (
+      <>
+        <NavLink to={"/"} className="mr-5 hover:text-gray-600">
+          Home
+        </NavLink>
+        <NavLink to={"/about"} className="mr-5 hover:text-gray-600">
+          About
+        </NavLink>
+        <NavLink to={"/available-doctors"} className="mr-5 hover:text-gray-600">
+          Find Doctors
+        </NavLink>
+        <NavLink to={"/appointments"} className="mr-5 hover:text-gray-600">
+          My Appointments
+        </NavLink>
+      </>
+    );
+  };
+
   return (
     <div>
       <header className="text-gray-900 body-font">
@@ -28,24 +83,9 @@ export default function Navbar() {
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
 
+          {/* Desktop navbar */}
           <nav className="hidden md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 md:flex items-center text-base justify-center">
-            {authUser === null || authUser.role !== "admin" ? (
-              <>
-                <NavLink to={"/"} className="mr-5 hover:text-gray-600">
-                  Home
-                </NavLink>
-                <NavLink to={"/about"} className="mr-5 hover:text-gray-600">
-                  About
-                </NavLink>
-                <NavLink to={"/doctors"} className="mr-5 hover:text-gray-600">
-                  Find Doctors
-                </NavLink>
-              </>
-            ) : (
-              <NavLink to={"/admin"} className="mr-5 hover:text-gray-600">
-                Admin Dashboard
-              </NavLink>
-            )}
+            {renderLinks()}
           </nav>
 
           <div className="hidden md:flex items-center">
@@ -63,14 +103,6 @@ export default function Navbar() {
                     <CircleUser className="w-[30px] h-[30px]" />
                   )}
                 </span>
-                {authUser.role !== "admin" && (
-                  <NavLink
-                    to={"/appointments"}
-                    className="mr-5 hover:text-gray-600"
-                  >
-                    My Appointments
-                  </NavLink>
-                )}
                 <button
                   onClick={handleLogout}
                   className="inline-flex items-center bg-gray-100 border-0 py-1 px-5 focus:outline-none hover:bg-gray-200 rounded text-base cursor-pointer"
@@ -98,31 +130,7 @@ export default function Navbar() {
         {/* Mobile dropdown */}
         {isOpen && (
           <div className="md:hidden px-5 pb-5 space-y-4">
-            <nav className="flex flex-col space-y-2">
-              {authUser === null || authUser.role !== "admin" ? (
-                <>
-                  <Link to={"/"} onClick={() => setIsOpen(false)}>
-                    Home
-                  </Link>
-                  <Link to={"/about"} onClick={() => setIsOpen(false)}>
-                    About
-                  </Link>
-                  <Link to={"/doctors"} onClick={() => setIsOpen(false)}>
-                    Find Doctors
-                  </Link>
-
-                  {authUser && authUser.role !== "admin" && (
-                    <Link to={"/appointments"} onClick={() => setIsOpen(false)}>
-                      My Appointments
-                    </Link>
-                  )}
-                </>
-              ) : (
-                <Link to={"/admin"} onClick={() => setIsOpen(false)}>
-                  Admin Dashboard
-                </Link>
-              )}
-            </nav>
+            <nav className="flex flex-col space-y-2">{renderLinks()}</nav>
 
             {authUser ? (
               <div className="mt-4 flex flex-col space-y-3">

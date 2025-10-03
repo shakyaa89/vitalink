@@ -16,6 +16,7 @@ import DoctorRegisterForm from "./components/doctor/DoctorRegisterForm";
 import DoctorsPage from "./pages/DoctorsPage";
 import BookAppointmentPage from "./pages/BookAppointmentPage";
 import AppointmentsPage from "./pages/AppointmentsPage";
+import DoctorDashboardPage from "./pages/DoctorDashboardPage";
 
 function App() {
   const { checkAuth, authUser, isCheckingAuth } = useAuth();
@@ -36,20 +37,31 @@ function App() {
     <>
       <Toaster />
       <Navbar />
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutUsPage />} />
-        <Route path="/doctors" element={<DoctorsPage />} />
+        <Route path="/available-doctors" element={<DoctorsPage />} />
 
         <Route
           path="/appointments"
-          element={authUser ? <AppointmentsPage /> : <Navigate to="/login" />}
+          element={
+            authUser && authUser.role === "user" ? (
+              <AppointmentsPage />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
 
         <Route
           path="/book-appointment/:doctorId"
           element={
-            authUser ? <BookAppointmentPage /> : <Navigate to="/login" />
+            authUser && authUser.role === "user" ? (
+              <BookAppointmentPage />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
 
@@ -77,6 +89,13 @@ function App() {
         <Route
           path="/doctor/register"
           element={authUser ? <Navigate to="/" /> : <DoctorRegisterForm />}
+        />
+
+        <Route
+          path="/doctor"
+          element={
+            authUser && authUser.role === "doctor" && <DoctorDashboardPage />
+          }
         />
 
         <Route path="*" element={<NotFoundPage />} />
