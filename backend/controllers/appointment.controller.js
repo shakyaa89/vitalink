@@ -40,3 +40,22 @@ export const getAppointmentsByDoctor = async (req, res) => {
     });
   }
 };
+
+export const getAppointmentsByUser = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const appointments = await Appointment.find({ user: userId }).populate(
+      "doctor"
+    );
+
+    res.status(200).json({
+      appointments,
+    });
+  } catch (err) {
+    console.error("Error fetching appointments:", err);
+    res.status(500).json({
+      message: "Failed to fetch appointments",
+    });
+  }
+};

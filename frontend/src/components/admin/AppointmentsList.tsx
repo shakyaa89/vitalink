@@ -22,6 +22,8 @@ interface Appointment {
 function AppointmentsList() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [showCancellationModal, setShowCancellationModal] =
+    useState<boolean>(false);
   const [appointmentId, setAppointmentId] = useState<string>("");
 
   const fetchAppointments = async () => {
@@ -47,6 +49,35 @@ function AppointmentsList() {
       );
       fetchAppointments();
       toast.success(response.data.message);
+    } catch (error) {
+      console.error("Error confirming appointment:", error);
+    }
+  };
+
+  const completeAppointment = async (appointmentId: string) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/admin/complete/appointment/${appointmentId}`,
+        {},
+        { withCredentials: true }
+      );
+      fetchAppointments();
+      toast.success(response.data.message);
+    } catch (error) {
+      console.error("Error confirming appointment:", error);
+    }
+  };
+
+  const cancelAppointment = async (appointmentId: string) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/admin/cancel/appointment/${appointmentId}`,
+        {},
+        { withCredentials: true }
+      );
+      fetchAppointments();
+      toast.success(response.data.message);
+      setShowCancellationModal(false);
     } catch (error) {
       console.error("Error confirming appointment:", error);
     }
@@ -148,14 +179,37 @@ function AppointmentsList() {
                     </span>
                   </p>
                   <div className="flex gap-5">
-                    {appt.status !== "confirmed" && (
+                    {appt.status === "pending" && (
                       <button
                         onClick={() => confirmAppointment(appt._id)}
-                        className="w-full mt-3 bg-green-500 text-white font-semibold py-1 px-3 rounded-lg hover:bg-red-600 transition-colors cursor-pointer"
+                        className="w-full mt-3 bg-green-500 text-white font-semibold py-1 px-3 rounded-lg hover:bg-green-600 transition-colors cursor-pointer"
                       >
-                        Confirm Appointment
+                        Approve Appointment
                       </button>
                     )}
+
+                    {appt.status === "confirmed" && (
+                      <>
+                        <button
+                          onClick={() => completeAppointment(appt._id)}
+                          className="w-full mt-3 bg-indigo-500 text-white font-semibold py-1 px-3 rounded-lg hover:bg-indigo-600 transition-colors cursor-pointer"
+                        >
+                          Complete Appointment
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            setShowCancellationModal(true);
+                            setAppointmentId(appt._id);
+                          }}
+                          className="w-full mt-3 bg-red-500 text-white font-semibold py-1 px-3 rounded-lg hover:bg-red-600 transition-colors cursor-pointer"
+                        >
+                          Cancel Appointment
+                        </button>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex gap-5">
                     <button
                       onClick={() => {
                         setShowDeleteModal(true);
@@ -172,6 +226,33 @@ function AppointmentsList() {
           ))}
         </div>
       </div>
+
+      {showCancellationModal && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-sm shadow-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-900">
+              Confirm Cancellation
+            </h2>
+            <p className="text-gray-600 mb-4">
+              Are you sure you want to cancel this appointment?
+            </p>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setShowCancellationModal(false)}
+                className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => cancelAppointment(appointmentId)}
+                className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">

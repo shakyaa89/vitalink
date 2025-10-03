@@ -1,6 +1,6 @@
 // LoginForm.tsx
 import { CircleUserRound } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuthHook";
 
@@ -8,7 +8,7 @@ const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { authUser, login } = useAuth();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,10 +20,6 @@ const LoginForm: React.FC = () => {
 
     await login(data, navigate);
   };
-
-  useEffect(() => {
-    console.log(authUser);
-  }, []);
 
   return (
     <div className="mt-20 md:mt-30  flex items-center justify-center px-10">

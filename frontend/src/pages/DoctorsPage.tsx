@@ -6,6 +6,9 @@ import {
   BadgeCheck,
   Wallet,
   UserCircle,
+  Mail,
+  MessageCircle,
+  FacebookIcon,
 } from "lucide-react";
 import { useAuth } from "../hooks/useAuthHook";
 import { useNavigate } from "react-router-dom";
@@ -133,10 +136,34 @@ function DoctorsPage() {
                 <p className="text-gray-700 text-sm mt-2">
                   {doctor.doctorProfile.experience} years experience
                 </p>
-                <p className="text-blue-700 font-semibold flex items-center gap-1 mt-1">
+                <p className="text-blue-700 font-semibold flex items-center gap-1 mt-2">
                   <Wallet className="w-4 h-4" />
                   Rs.{doctor.doctorProfile.fee}
                 </p>
+
+                <div className="flex space-x-3 mt-4">
+                  <a
+                    href={`mailto:${doctor.email}`}
+                    className="p-2 bg-indigo-100 rounded-full text-indigo-600 hover:bg-indigo-200"
+                    title="Email"
+                  >
+                    <Mail size={20} />
+                  </a>
+                  <a
+                    href="#"
+                    className="p-2 bg-indigo-100 rounded-full text-indigo-600 hover:bg-indigo-200"
+                    title="Message"
+                  >
+                    <MessageCircle size={20} />
+                  </a>
+                  <a
+                    href="#"
+                    className="p-2 bg-indigo-100 rounded-full text-indigo-600 hover:bg-indigo-200"
+                    title="Facebook"
+                  >
+                    <FacebookIcon size={20} />
+                  </a>
+                </div>
 
                 {authUser && (
                   <button

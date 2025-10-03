@@ -34,8 +34,6 @@ export async function protectAdminRoute(req, res, next) {
     const token = req.cookies.jwtToken;
 
     if (!token) {
-      console.log("User not authorized!");
-
       return res.status(401).json({ message: "User not authorized!" });
     }
 

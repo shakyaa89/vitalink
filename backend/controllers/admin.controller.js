@@ -91,6 +91,40 @@ export async function confirmAppointment(req, res) {
   }
 }
 
+export async function completeAppointment(req, res) {
+  try {
+    const appointment = await Appointment.findById(req.params.id);
+
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    appointment.status = "completed";
+    await appointment.save();
+
+    return res.status(200).json({ message: "Appointment completed!" });
+  } catch (error) {
+    return res.status(500).json({ message: "Server error" });
+  }
+}
+
+export async function cancelAppointment(req, res) {
+  try {
+    const appointment = await Appointment.findById(req.params.id);
+
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    appointment.status = "cancelled";
+    await appointment.save();
+
+    return res.status(200).json({ message: "Appointment cancelled!" });
+  } catch (error) {
+    return res.status(500).json({ message: "Server error" });
+  }
+}
+
 export async function deleteAppointment(req, res) {
   try {
     const appointment = await Appointment.findById(req.params.id);

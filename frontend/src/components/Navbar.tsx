@@ -68,7 +68,7 @@ export default function Navbar() {
                     to={"/appointments"}
                     className="mr-5 hover:text-gray-600"
                   >
-                    Appointments
+                    My Appointments
                   </NavLink>
                 )}
                 <button
@@ -113,7 +113,7 @@ export default function Navbar() {
 
                   {authUser && authUser.role !== "admin" && (
                     <Link to={"/appointments"} onClick={() => setIsOpen(false)}>
-                      Appointments
+                      My Appointments
                     </Link>
                   )}
                 </>
