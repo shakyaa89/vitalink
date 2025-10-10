@@ -24,10 +24,9 @@ interface Doctor {
 
 function UnapprovedDoctorsList() {
   const [unapprovedDoctors, setUnapprovedDoctors] = useState<Doctor[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchUnapprovedDoctors = async () => {
-    setIsLoading(true);
     try {
       const response = await axios.get(
         "http://localhost:5000/api/admin/unapproved-doctors",
@@ -37,7 +36,7 @@ function UnapprovedDoctorsList() {
     } catch (error) {
       console.error("Error fetching unapproved doctors:", error);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
@@ -72,7 +71,7 @@ function UnapprovedDoctorsList() {
     }
   };
 
-  if (isLoading)
+  if (loading)
     return (
       <div className="flex justify-center  text-center w-full my-10">
         <Loader2 className="animate-spin" size={30} />

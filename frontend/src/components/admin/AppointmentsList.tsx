@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CalendarDays, Clock } from "lucide-react";
+import { CalendarDays, Clock, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -27,6 +27,8 @@ function AppointmentsList() {
     useState<boolean>(false);
   const [appointmentId, setAppointmentId] = useState<string>("");
 
+  const [loading, setLoading] = useState(true);
+
   const fetchAppointments = async () => {
     try {
       const response = await axios.get(
@@ -38,6 +40,8 @@ function AppointmentsList() {
       setAppointments(response.data.appointments);
     } catch (error) {
       console.error("Error fetching appointments:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -101,6 +105,19 @@ function AppointmentsList() {
       console.error("Error deleting appointment:", error);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="mt-60 flex items-center justify-center">
+        <p>
+          <span className="flex gap-3">
+            <Loader2 className="animate-spin" />
+            Loading Appointments...
+          </span>
+        </p>
+      </div>
+    );
+  }
 
   return (
     <section className="text-gray-600 body-font">

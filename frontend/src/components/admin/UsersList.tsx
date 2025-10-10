@@ -1,5 +1,5 @@
 import axios from "axios";
-import { User2 } from "lucide-react";
+import { Loader2, User2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface User {
@@ -11,6 +11,7 @@ interface User {
 
 function UsersList() {
   const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchUsers = async () => {
     try {
@@ -21,12 +22,27 @@ function UsersList() {
       setUsers(response.data.users);
     } catch (error) {
       console.error("Error fetching users:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="mt-60 flex items-center justify-center">
+        <p>
+          <span className="flex gap-3">
+            <Loader2 className="animate-spin" />
+            Loading Users...
+          </span>
+        </p>
+      </div>
+    );
+  }
 
   return (
     <section className="text-gray-600 body-font">

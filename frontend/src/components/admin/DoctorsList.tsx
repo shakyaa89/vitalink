@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Stethoscope } from "lucide-react";
+import { Loader2, Stethoscope } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -25,6 +25,7 @@ function DoctorsList() {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [doctorId, setDoctorId] = useState<string>("");
+  const [loading, setLoading] = useState(true);
 
   const fetchDoctors = async () => {
     try {
@@ -32,6 +33,8 @@ function DoctorsList() {
       setDoctors(response.data.doctors);
     } catch (error) {
       console.error("Error fetching unapproved doctors:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,6 +55,19 @@ function DoctorsList() {
       console.error("Error rejecting doctor:", error);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="mt-60 flex items-center justify-center">
+        <p>
+          <span className="flex gap-3">
+            <Loader2 className="animate-spin" />
+            Loading Doctors...
+          </span>
+        </p>
+      </div>
+    );
+  }
 
   return (
     <section className="text-gray-600 body-font">

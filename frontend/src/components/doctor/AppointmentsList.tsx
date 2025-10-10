@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CalendarDays, Clock } from "lucide-react";
+import { CalendarDays, Clock, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuthHook";
 
@@ -22,11 +22,13 @@ interface Appointment {
 
 function AppointmentsList() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [loading, setLoading] = useState(true);
   const { authUser } = useAuth();
 
   const doctorId = authUser?._id;
 
   const fetchAppointments = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         `http://localhost:5000/api/appointment/doctor/${doctorId}`,
@@ -37,6 +39,8 @@ function AppointmentsList() {
       setAppointments(response.data.appointments);
     } catch (error) {
       console.error("Error fetching appointments:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,7 +48,20 @@ function AppointmentsList() {
     fetchAppointments();
   }, []);
 
-  if (appointments.length === 0) {
+  if (loading) {
+    return (
+      <div className="mt-60 flex items-center justify-center">
+        <p>
+          <span className="flex gap-3">
+            <Loader2 className="animate-spin" />
+            Loading Appointments...
+          </span>
+        </p>
+      </div>
+    );
+  }
+
+  if (appointments.length === 0 && !loading) {
     return (
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-10 mx-auto">

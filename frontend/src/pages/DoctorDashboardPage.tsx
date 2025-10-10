@@ -1,5 +1,4 @@
 import { useState } from "react";
-import AdminDashboard from "../components/admin/AdminDashboard";
 import AppointmentsList from "../components/doctor/AppointmentsList.tsx";
 import DoctorDashboard from "../components/doctor/DoctorDashboard.tsx";
 
